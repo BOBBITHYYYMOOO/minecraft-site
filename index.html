@@ -1,12 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eaglercraft 1.9 Standalone Client</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eaglercraft Web Edition</title>
 </head>
 <body style="margin:0; padding:0; overflow:hidden; background-color:black;">
-    <!-- This points to an open-access, public mirror that permits external embedding -->
-    <iframe src="https://github.io" style="width:100vw; height:100vh; border:none;"></iframe>
+    <!-- Pulls the official, unblocked engine scripts directly without frames -->
+    <script type="text/javascript" src="https://github.io"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            const relayId = Math.floor(Math.random() * 3);
+            window.eaglercraftXOpts = {
+                container: "game_frame",
+                worldsDB: "worlds",
+                relays: [
+                    { addr: "wss://relay.deev.is/", primary: relayId === 0 },
+                    { addr: "wss://relay.lax1dude.net/", primary: relayId === 1 },
+                    { addr: "wss://relay.shhnowisnottheti.me/", primary: relayId === 2 }
+                ]
+            };
+            main();
+        });
+    </script>
+    <div id="game_frame" style="width:100vw; height:100vh;"></div>
 </body>
 </html>
